@@ -140,9 +140,13 @@ public:
 	bool onkoRuutuTurvallinen(Ruutu* kunkkuRuutu, int vastustajanVari);
 	void listanSiivous(list<Siirto>& lista, int vari);
 	int _ohestaLyontiSarake = -1;
+	double evaluoi();
+	double maxi(int syvyys, Asema a);
+	double mini(int syvyys, Asema a);
 
 private:
 	int _siirtovuoro;
+	int _vuorolkm;
 	bool _onkoValkeaKuningasLiikkunut = false;
 	bool _onkoMustaKuningasLiikkunut = false;
 	bool _onkoValkeaDTliikkunut = false;
@@ -162,6 +166,12 @@ public:
 	void piirraLauta();
 	Siirto annaVastustajanSiirto(Siirto siirto);
 	Siirto kasittely(string syote, int vari);
+};
+
+class MinMaxPaluu {
+public:
+	double evaluointiArvo;
+	Siirto parasSiirto;
 };
 
 
