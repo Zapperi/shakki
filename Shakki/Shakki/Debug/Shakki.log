@@ -1,0 +1,12 @@
+﻿  Funktiot.cpp
+c:\users\omistaja\desktop\shakki\shakki.h(105): warning C4584: 'Daami': base-class 'Nappula' is already a base-class of 'Lahetti'
+  c:\users\omistaja\desktop\shakki\shakki.h(53): note: see declaration of 'Nappula'
+  c:\users\omistaja\desktop\shakki\shakki.h(87): note: see declaration of 'Lahetti'
+  Generating Code...
+  Compiling...
+  Shakki.cpp
+c:\users\omistaja\desktop\shakki\shakki.h(105): warning C4584: 'Daami': base-class 'Nappula' is already a base-class of 'Lahetti'
+  c:\users\omistaja\desktop\shakki\shakki.h(53): note: see declaration of 'Nappula'
+  c:\users\omistaja\desktop\shakki\shakki.h(87): note: see declaration of 'Lahetti'
+  Generating Code...
+  Shakki.vcxproj -> C:\Users\Omistaja\Desktop\Shakki\Shakki\Debug\Shakki.exe
