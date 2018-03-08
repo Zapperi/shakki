@@ -12,7 +12,7 @@ Nappula::Nappula(wstring unikoodi, int color, int koodi) {
 	_koodi = koodi;
 }
 
-
+//Henkan testikommenti
 void Nappula::setKoodi(int koodi) {
 	_koodi = koodi;
 };
@@ -642,64 +642,64 @@ bool Asema::getOnkoMustaKTliikkunut() {
 	return _onkoMustaKTliikkunut;
 };
 
-double Asema::evaluoi() {
-	double _arvo = arvo;
-	double D_arvo = 9, T_arvo = 5, L_arvo = 3.5, R_arvo = 3, S_arvo = 1;
-	for (int i = 0; i < 8; i++) {
-		for (int j = 0; j < 8; j++) {
-			switch (_lauta[i][j]->getKoodi) {
-			case VS:
-				_arvo += S_arvo;
-			case VR:
-				_arvo += R_arvo;
-			case VL:
-				_arvo += L_arvo;
-			case VT:
-				_arvo += T_arvo;
-			case VD:
-				_arvo += D_arvo;
-			case MS:
-				_arvo -= S_arvo;
-			case MR:
-				_arvo -= R_arvo;
-			case ML:
-				_arvo -= L_arvo;
-			case MT:
-				_arvo -= T_arvo;
-			case MD:
-				_arvo -= D_arvo;
-				break;
-			}
-			if ((_lauta[i][j]->getKoodi == VK && i + 1 < 8) || (_lauta[i][j]->getKoodi == VK && i - 1 > 0)) {
-				if (_lauta[i + 1][j]->getKoodi == VT) {
-					if (_vuorolkm < 11) {
-						_arvo += 0.6;
-					}
-				}
-				if (_lauta[i - 1][j]->getKoodi == VT) {
-					if (_vuorolkm < 11) {
-						_arvo += 0.8;
-					}
-				}
-			}
-			if ((_lauta[i][j]->getKoodi == MK && i + 1 < 8) || (_lauta[i][j]->getKoodi == MK && i - 1 > 0)) {
-				if (_lauta[i + 1][j]->getKoodi == MT) {
-					if (_vuorolkm < 11) {
-						_arvo -= 0.6;
-					}
-				}
-				if (_lauta[i - 1][j]->getKoodi == MT) {
-					if (_vuorolkm < 11) {
-						_arvo -= 0.8;
-					}
-				}
-			}
-		}
-	}
-
-	return _arvo;
-
-}
+//double Asema::evaluoi() {
+//	double _arvo = arvo;
+//	double D_arvo = 9, T_arvo = 5, L_arvo = 3.5, R_arvo = 3, S_arvo = 1;
+//	for (int i = 0; i < 8; i++) {
+//		for (int j = 0; j < 8; j++) {
+//			switch (_lauta[i][j]->getKoodi) {
+//			case VS:
+//				_arvo += S_arvo;
+//			case VR:
+//				_arvo += R_arvo;
+//			case VL:
+//				_arvo += L_arvo;
+//			case VT:
+//				_arvo += T_arvo;
+//			case VD:
+//				_arvo += D_arvo;
+//			case MS:
+//				_arvo -= S_arvo;
+//			case MR:
+//				_arvo -= R_arvo;
+//			case ML:
+//				_arvo -= L_arvo;
+//			case MT:
+//				_arvo -= T_arvo;
+//			case MD:
+//				_arvo -= D_arvo;
+//				break;
+//			}
+//			if ((_lauta[i][j]->getKoodi == VK && i + 1 < 8) || (_lauta[i][j]->getKoodi == VK && i - 1 > 0)) {
+//				if (_lauta[i + 1][j]->getKoodi == VT) {
+//					if (_vuorolkm < 11) {
+//						_arvo += 0.6;
+//					}
+//				}
+//				if (_lauta[i - 1][j]->getKoodi == VT) {
+//					if (_vuorolkm < 11) {
+//						_arvo += 0.8;
+//					}
+//				}
+//			}
+//			if ((_lauta[i][j]->getKoodi == MK && i + 1 < 8) || (_lauta[i][j]->getKoodi == MK && i - 1 > 0)) {
+//				if (_lauta[i + 1][j]->getKoodi == MT) {
+//					if (_vuorolkm < 11) {
+//						_arvo -= 0.6;
+//					}
+//				}
+//				if (_lauta[i - 1][j]->getKoodi == MT) {
+//					if (_vuorolkm < 11) {
+//						_arvo -= 0.8;
+//					}
+//				}
+//			}
+//		}
+//	}
+//
+//	return _arvo;
+//
+//}
 //double Asema::maxi(int syvyys, Asema a) {
 //	if (syvyys == 0) return evaluoi();
 //	int max = -oo;
@@ -740,7 +740,7 @@ void Asema::annaLaillisetSiirrot(list<Siirto>& lista) {
 }
 
 bool Asema::onkoRuutuTurvallinen(Ruutu* kunkkuRuutu, int vastustajanVari) {
-	std::list<Siirto> vastustajanSiirrot;
+	list<Siirto> vastustajanSiirrot;
 	//V‰reitt‰in k‰yd‰‰n l‰pi kaikki ruudut ja niiss‰ olevan nappulan siirrot ker‰t‰‰n vastustajan siirtolistaan
 	for (int i = 0; i < 8; i++) {
 		for (int j = 0; j < 8; j++) {
@@ -767,13 +767,14 @@ void Asema::listanSiivous(list<Siirto>& lista, int pelaajaVari) {
 	list<Siirto> tempList;
 	if (pelaajaVari == 0) {
 		for (auto siirto : lista) {
-			if (this->onkoRuutuTurvallinen(&this->vkruutu, 1) == true)
+			//Jos pelaaja on valkoinen (0), k‰y l‰pi onko kuninkaan ruutu uhattu.
+			if (this->onkoRuutuTurvallinen(&this->vkruutu, 1))
 				tempList.push_back(siirto);
 		}
 	}
 	else {
 		for (auto siirto : lista) {
-			if (this->onkoRuutuTurvallinen(&this->mkruutu, 0) == true)
+			if (this->onkoRuutuTurvallinen(&this->mkruutu, 0))
 				tempList.push_back(siirto);
 		}
 	}
