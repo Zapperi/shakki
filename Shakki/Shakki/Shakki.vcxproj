@@ -139,7 +139,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Funktiot.cpp" />
+    <ClCompile Include="..\..\Kayttoliittyma.cpp" />
+    <ClCompile Include="..\..\Nappula.cpp" />
+    <ClCompile Include="..\..\Ruutu.cpp" />
     <ClCompile Include="..\..\Shakki.cpp" />
+    <ClCompile Include="..\..\Asema.cpp" />
+    <ClCompile Include="..\..\Siirto.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
