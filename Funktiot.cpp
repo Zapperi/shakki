@@ -12,7 +12,7 @@ Nappula::Nappula(wstring unikoodi, int color, int koodi) {
 	_koodi = koodi;
 }
 
-
+// jee
 void Nappula::setKoodi(int koodi) {
 	_koodi = koodi;
 };
