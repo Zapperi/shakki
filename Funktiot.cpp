@@ -5,6 +5,7 @@
 //_.--~~SYVÄ AJATUS~~--._
 
 
+
 // ---Nappula Classin toteutus--------
 Nappula::Nappula(wstring unikoodi, int color, int koodi) {
 	unicode = unikoodi;
@@ -12,11 +13,7 @@ Nappula::Nappula(wstring unikoodi, int color, int koodi) {
 	_koodi = koodi;
 }
 
-<<<<<<< HEAD
-// jee
-=======
-//Henkan testikommenti
->>>>>>> ae5426a84cf93e872b26fa1437d5f112700c0d9a
+
 void Nappula::setKoodi(int koodi) {
 	_koodi = koodi;
 };
@@ -646,84 +643,215 @@ bool Asema::getOnkoMustaKTliikkunut() {
 	return _onkoMustaKTliikkunut;
 };
 
-//double Asema::evaluoi() {
-//	double _arvo = arvo;
-//	double D_arvo = 9, T_arvo = 5, L_arvo = 3.5, R_arvo = 3, S_arvo = 1;
-//	for (int i = 0; i < 8; i++) {
-//		for (int j = 0; j < 8; j++) {
-//			switch (_lauta[i][j]->getKoodi) {
-//			case VS:
-//				_arvo += S_arvo;
-//			case VR:
-//				_arvo += R_arvo;
-//			case VL:
-//				_arvo += L_arvo;
-//			case VT:
-//				_arvo += T_arvo;
-//			case VD:
-//				_arvo += D_arvo;
-//			case MS:
-//				_arvo -= S_arvo;
-//			case MR:
-//				_arvo -= R_arvo;
-//			case ML:
-//				_arvo -= L_arvo;
-//			case MT:
-//				_arvo -= T_arvo;
-//			case MD:
-//				_arvo -= D_arvo;
-//				break;
-//			}
-//			if ((_lauta[i][j]->getKoodi == VK && i + 1 < 8) || (_lauta[i][j]->getKoodi == VK && i - 1 > 0)) {
-//				if (_lauta[i + 1][j]->getKoodi == VT) {
-//					if (_vuorolkm < 11) {
-//						_arvo += 0.6;
-//					}
-//				}
-//				if (_lauta[i - 1][j]->getKoodi == VT) {
-//					if (_vuorolkm < 11) {
-//						_arvo += 0.8;
-//					}
-//				}
-//			}
-//			if ((_lauta[i][j]->getKoodi == MK && i + 1 < 8) || (_lauta[i][j]->getKoodi == MK && i - 1 > 0)) {
-//				if (_lauta[i + 1][j]->getKoodi == MT) {
-//					if (_vuorolkm < 11) {
-//						_arvo -= 0.6;
-//					}
-//				}
-//				if (_lauta[i - 1][j]->getKoodi == MT) {
-//					if (_vuorolkm < 11) {
-//						_arvo -= 0.8;
-//					}
-//				}
-//			}
-//		}
-//	}
-//
-//	return _arvo;
-//
-//}
-//double Asema::maxi(int syvyys, Asema a) {
-//	if (syvyys == 0) return evaluoi();
-//	int max = -oo;
-//	for (a.lista) {
-//		arvo = mini(syvyys - 1);
-//		if (arvo > max)
-//			max = arvo;
-//	}
-//	return max;
-//}
-//double Asema::mini(int syvyys, Asema a) {
-//	if (syvyys == 0) return evaluoi();
-//	int min = +oo;
-//	for (a.lista) {
-//		arvo = maxi(syvyys - 1);
-//		if (arvo < min)
-//			min = arvo;
-//	}
-//	return min;
-//}
+double Asema::evaluoi() {
+	double _arvo = 0;
+	double D_arvo = 9, T_arvo = 5, L_arvo = 3.5, R_arvo = 3, S_arvo = 1;
+	for (int i = 0; i < 8; i++) {
+		for (int j = 0; j < 8; j++) {
+			switch (_lauta[i][j]->getKoodi()) {
+			case VS:
+				_arvo += S_arvo;
+			case VR:
+				_arvo += R_arvo;
+			case VL:
+				_arvo += L_arvo;
+			case VT:
+				_arvo += T_arvo;
+			case VD:
+				_arvo += D_arvo;
+			case MS:
+				_arvo -= S_arvo;
+			case MR:
+				_arvo -= R_arvo;
+			case ML:
+				_arvo -= L_arvo;
+			case MT:
+				_arvo -= T_arvo;
+			case MD:
+				_arvo -= D_arvo;
+				break;
+			}
+			if ((_lauta[i][j]->getKoodi() == VK && i + 1 < 8) || (_lauta[i][j]->getKoodi() == VK && i - 1 > 0)) {
+				if (_lauta[i + 1][j]->getKoodi() == VT) {
+					if (_vuorolkm < 11) {
+						_arvo += 0.6;
+					}
+				}
+				if (_lauta[i - 1][j]->getKoodi() == VT) {
+					if (_vuorolkm < 11) {
+						_arvo += 0.8;
+					}
+				}
+			}
+			if ((_lauta[i][j]->getKoodi() == MK && i + 1 < 8) || (_lauta[i][j]->getKoodi() == MK && i - 1 > 0)) {
+				if (_lauta[i + 1][j]->getKoodi() == MT) {
+					if (_vuorolkm < 11) {
+						_arvo -= 0.6;
+					}
+				}
+				if (_lauta[i - 1][j]->getKoodi() == MT) {
+					if (_vuorolkm < 11) {
+						_arvo -= 0.8;
+					}
+				}
+			}
+		}
+	}
+
+	return _arvo;
+
+}
+
+MinMaxPaluu Asema::minimax(int syvyys)
+{
+	MinMaxPaluu paluuarvo;
+
+
+	// Rekursion kantatapaus 1: peli on loppu
+	if (lista.size() == 0)
+	{
+		// *** TODO ***
+		// tutki kumpi ja palauta sen mukainen arvo (tasapeli 0).
+		paluuarvo.evaluointiArvo = 0;
+		return paluuarvo;
+	}
+
+	// Rekursion kantatapaus 2: katkaisusyvyydessä
+	if (syvyys == 0)
+	{
+		paluuarvo.evaluointiArvo = evaluoi();
+		return paluuarvo;
+	}
+
+	// Rekursioaskel: kokeillaan jokaista laillista siirtoa s
+	// (alustetaan paluuarvo huonoimmaksi mahdolliseksi).
+	paluuarvo.evaluointiArvo = (getSiirtovuoro() == 0 ? -1000000 : 100000);
+	for (auto s : lista)
+	{
+		// Seuraaja-asema (tehdään nykyisessä asemassa siirto s).
+		Asema uusi_asema = *this;
+		uusi_asema.paivitaAsema(&s);
+
+		// Rekursiivinen kutsu.
+		MinMaxPaluu arvo = uusi_asema.minimax(syvyys - 1);
+
+		// Tutkitaan ollaan löydetty uusi paras siirto.
+		if
+			(
+			(getSiirtovuoro() == 0 && arvo.evaluointiArvo > paluuarvo.evaluointiArvo) ||
+				(getSiirtovuoro() == 1 && arvo.evaluointiArvo < paluuarvo.evaluointiArvo)
+				)
+		{
+			// Löydettiin uusi paras siirto.
+			paluuarvo.evaluointiArvo = arvo.evaluointiArvo;
+			paluuarvo.parasSiirto = arvo.parasSiirto;
+		}
+	}
+	return paluuarvo;
+}
+
+MinMaxPaluu Asema::maxi(int syvyys) {
+	Ruutu kuninkaanRuutu;
+	double arvo;
+	Asema uusiAsema;
+	Siirto parasSiirto;
+	MinMaxPaluu paluu;
+	// Tarkasta onko matti tai patti, jos on niin poistu asap, matti -100000, patti 0
+	if (lista.size() == 0) {
+		//selvitä kuninkaan ruutu
+		for (int x = 0; x < 8; x++) {
+			for (int y = 0; y < 8; y++) {
+				if (this->_lauta[x][y] != NULL) {
+					if (this->_lauta[x][y]->getKoodi() == VK) {
+						kuninkaanRuutu.setSarake(x);
+						kuninkaanRuutu.setRivi(y);
+					}
+				}
+			}
+		}
+		//matti
+		if (this->onkoRuutuTurvallinen(&kuninkaanRuutu, 1)) {
+			paluu.evaluointiArvo = -1000000;
+			return paluu;
+		}
+		//patti
+		if (!this->onkoRuutuTurvallinen(&kuninkaanRuutu, 1)) {
+			paluu.evaluointiArvo = 0;
+			return paluu;
+		}
+	}
+	// Jos ei ole matti tai patti niin käy pelipuuta läpi rekursiivisesti
+	if (syvyys == 0) { // rekursion kanta
+		paluu.evaluointiArvo = this->evaluoi();
+		return 	paluu;
+	}
+	double maximi = -100000; // iso arvo jotta varmasti paranee
+	for (auto s : lista) {
+		uusiAsema = *this;
+		uusiAsema.paivitaAsema(&s);
+		arvo = uusiAsema.mini(syvyys - 1).evaluointiArvo;
+		if (arvo > maximi) {
+			maximi = arvo;
+			parasSiirto = s;
+		}
+	}
+	paluu.evaluointiArvo = maximi;
+	paluu.parasSiirto = parasSiirto;
+	return paluu;
+}
+
+MinMaxPaluu Asema::mini(int syvyys) {
+	std::list<Siirto> lista;
+	Ruutu kuninkaanRuutu;
+	this->annaLaillisetSiirrot(lista);
+	double arvo;
+	Asema uusiAsema;
+	Siirto parasSiirto;
+	MinMaxPaluu paluu;
+	// Tarkasta onko matti tai patti, jos on niin poistu asap, matti -100000, patti 0
+	if (lista.size() == 0) {
+		//selvitä kuninkaan ruutu
+		for (int x = 0; x < 8; x++) {
+			for (int y = 0; y < 8; y++) {
+				if (this->_lauta[x][y] != NULL) {
+					if (this->_lauta[x][y]->getKoodi() == MK) {
+						kuninkaanRuutu.setSarake(x);
+						kuninkaanRuutu.setRivi(y);
+					}
+				}
+			}
+		}
+		//matti
+		if (this->onkoRuutuTurvallinen(&kuninkaanRuutu, 0)) {
+			paluu.evaluointiArvo = 1000000;
+			return paluu;
+		}
+		//patti
+		if (!this->onkoRuutuTurvallinen(&kuninkaanRuutu, 0)) {
+			paluu.evaluointiArvo = 0;
+			return paluu;
+		}
+	}
+	// Jos ei ole matti tai patti niin käy pelipuuta läpi rekursiivisesti
+	if (syvyys == 0) { // rekursion kanta
+		paluu.evaluointiArvo = this->evaluoi();
+		//paluu.parasSiirto = MITÄ
+		return 	paluu;
+	}
+	double minimi = 100000; // iso arvo jotta varmasti paranee
+	for (auto s : lista) {
+		uusiAsema = *this;
+		uusiAsema.paivitaAsema(&s);
+		arvo = uusiAsema.maxi(syvyys - 1).evaluointiArvo;
+		if (arvo < minimi) {
+			minimi = arvo;
+			parasSiirto = s;
+		}
+	}
+	paluu.evaluointiArvo = minimi;
+	paluu.parasSiirto = parasSiirto;
+	return paluu;
+}
 
 void Asema::annaLaillisetSiirrot(list<Siirto>& lista) {
 	int vari = this->getSiirtovuoro();

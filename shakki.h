@@ -17,6 +17,7 @@ enum
 };
 
 class Asema;
+class MinMaxPaluu;
 
 class Ruutu {
 public:
@@ -141,8 +142,9 @@ public:
 	void listanSiivous(list<Siirto>& lista, int vari);
 	int _ohestaLyontiSarake = -1;
 	double evaluoi();
-	double maxi(int syvyys, Asema a);
-	double mini(int syvyys, Asema a);
+	MinMaxPaluu maxi(int syvyys);
+	MinMaxPaluu mini(int syvyys);
+	MinMaxPaluu minimax(int syvyys);
 
 private:
 	int _siirtovuoro;
