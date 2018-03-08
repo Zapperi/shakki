@@ -45,7 +45,7 @@ void Sotilas::annaSiirrot(std::list<Siirto>& lista, Ruutu& ruutu, Asema& asema, 
 	int alkuRivi = ruutu.getRivi();
 	int alkuSarake = ruutu.getSarake();
 	if (vari == 0) {
-		if (asema._lauta[alkuRivi + 1][alkuSarake] == nullptr  && alkuRivi +1 < 8) {
+		if (asema._lauta[alkuRivi + 1][alkuSarake] == nullptr && alkuRivi +1 < 8) {
 			Ruutu loppuRuutu(alkuRivi + 1, alkuSarake);
 			Siirto temp(ruutu, loppuRuutu);
 			lista.push_back(temp);
@@ -58,7 +58,7 @@ void Sotilas::annaSiirrot(std::list<Siirto>& lista, Ruutu& ruutu, Asema& asema, 
 			Siirto temp(ruutu, loppuRuutu);
 			lista.push_back(temp);
 		}
-		if (!Onkoliikutettu && asema._lauta[alkuRivi + 2][alkuSarake] == nullptr && asema._lauta[alkuRivi + 1][alkuSarake] == nullptr) {
+		if (!Onkoliikutettu && asema._lauta[alkuRivi + 1][alkuSarake] == nullptr && asema._lauta[alkuRivi + 2][alkuSarake] == nullptr) {
 			Ruutu loppuRuutu(alkuRivi + 2, alkuSarake);
 			Siirto temp(ruutu, loppuRuutu);
 			lista.push_back(temp);
@@ -76,8 +76,8 @@ void Sotilas::annaSiirrot(std::list<Siirto>& lista, Ruutu& ruutu, Asema& asema, 
 			}
 		}
 	}
-	else if (vari == 0) {
-		if (asema._lauta[alkuRivi - 1][alkuSarake] == nullptr  && alkuRivi - 1> 0) {
+	else if (vari == 1) {
+		if (asema._lauta[alkuRivi - 1][alkuSarake] == nullptr && alkuRivi - 1> 0) {
 			Ruutu loppuRuutu(alkuRivi - 1, alkuSarake);
 			Siirto temp(ruutu, loppuRuutu);
 			lista.push_back(temp);
@@ -90,7 +90,7 @@ void Sotilas::annaSiirrot(std::list<Siirto>& lista, Ruutu& ruutu, Asema& asema, 
 			Siirto temp(ruutu, loppuRuutu);
 			lista.push_back(temp);
 		}
-		if (!Onkoliikutettu && asema._lauta[alkuRivi -2][alkuSarake] == nullptr && asema._lauta[alkuRivi - 1][alkuSarake] == nullptr) {
+		if (!Onkoliikutettu && asema._lauta[alkuRivi -1][alkuSarake] == nullptr && asema._lauta[alkuRivi - 2][alkuSarake] == nullptr) {
 			Ruutu loppuRuutu(alkuRivi - 2, alkuSarake);
 			Siirto temp(ruutu, loppuRuutu);
 			lista.push_back(temp);
@@ -739,6 +739,30 @@ void Asema::annaLaillisetSiirrot(list<Siirto>& lista) {
 	
 }
 
+bool Asema::onkoRuutuTurvallinen(Asema *tempAsema, Ruutu* kunkkuRuutu, int vastustajanVari) {
+	list<Siirto> vastustajanSiirrot;
+	//V‰reitt‰in k‰yd‰‰n l‰pi kaikki ruudut ja niiss‰ olevan nappulan siirrot ker‰t‰‰n vastustajan siirtolistaan
+	for (int i = 0; i < 8; i++) {
+		for (int j = 0; j < 8; j++) {
+			if (tempAsema->_lauta[i][j] == NULL) {
+				continue;
+			}
+			if (tempAsema->_lauta[i][j]->getVari() == vastustajanVari)
+				tempAsema->_lauta[i][j]->annaSiirrot(vastustajanSiirrot, Ruutu(i, j), *tempAsema, vastustajanVari);
+		}
+	}
+	// Katsoo onko lis‰tyiss‰ siirroissa ruutu jossa sijaitsee kuningas.
+	bool ruutuOk = true;
+	for (auto vsiirto : vastustajanSiirrot)
+	{
+		if (kunkkuRuutu->getSarake() == vsiirto.getLoppuruutu().getSarake() && kunkkuRuutu->getRivi() == vsiirto.getLoppuruutu().getRivi()) {
+			ruutuOk = false;
+			break;
+		}
+	}
+	return ruutuOk;
+}
+
 bool Asema::onkoRuutuTurvallinen(Ruutu* kunkkuRuutu, int vastustajanVari) {
 	list<Siirto> vastustajanSiirrot;
 	//V‰reitt‰in k‰yd‰‰n l‰pi kaikki ruudut ja niiss‰ olevan nappulan siirrot ker‰t‰‰n vastustajan siirtolistaan
@@ -765,19 +789,26 @@ bool Asema::onkoRuutuTurvallinen(Ruutu* kunkkuRuutu, int vastustajanVari) {
 
 void Asema::listanSiivous(list<Siirto>& lista, int pelaajaVari) {
 	list<Siirto> tempList;
+	Asema tempAsema;
 	if (pelaajaVari == 0) {
 		for (auto siirto : lista) {
+			//luodaan testiasema, jossa tehd‰‰n siirto ja tarkistetaan mahd. vaara shakkitilanne.
+			tempAsema = *this;
+			tempAsema.paivitaAsema(&siirto);
 			//Jos pelaaja on valkoinen (0), k‰y l‰pi onko kuninkaan ruutu uhattu.
-			if (this->onkoRuutuTurvallinen(&this->vkruutu, 1))
+			if (tempAsema.onkoRuutuTurvallinen(&tempAsema, &tempAsema.vkruutu, 1))
 				tempList.push_back(siirto);
 		}
 	}
 	else {
 		for (auto siirto : lista) {
-			if (this->onkoRuutuTurvallinen(&this->mkruutu, 0))
+			tempAsema = *this;
+			tempAsema.paivitaAsema(&siirto);
+			if (tempAsema.onkoRuutuTurvallinen(&tempAsema, &tempAsema.mkruutu, 0))
 				tempList.push_back(siirto);
 		}
 	}
+	lista.clear();
 	lista = tempList;
 }
 

@@ -138,6 +138,7 @@ public:
 	Ruutu mkruutu;
 	void annaLaillisetSiirrot(list<Siirto>& lista);
 	bool onkoRuutuTurvallinen(Ruutu* kunkkuRuutu, int vastustajanVari);
+	bool onkoRuutuTurvallinen(Asema *tempAsema, Ruutu* kunkkuRuutu, int vastustajanVari);
 	void listanSiivous(list<Siirto>& lista, int vari);
 	int _ohestaLyontiSarake = -1;
 	double evaluoi();
