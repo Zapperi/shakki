@@ -121,6 +121,21 @@ void Sotilas::annaSiirrot(std::list<Siirto>& lista, Ruutu& ruutu, Asema& asema, 
 			}
 		}
 	}
+	//Tarkistetaan En Passant mahdollisuus
+	if (asema._ohestaLyontiSarake != -1) {
+		//valkoisen sotilaat
+		if (alkuRivi == 4 && vari == 0) {
+			//Jos en passant ruudussa oleva on vastustajan sotilas..
+			if (asema._lauta[asema._ohestaLyontiSarake][4] && asema._lauta[asema._ohestaLyontiSarake][4]->getKoodi() == MS) 
+				//Lisätään siirto listaan (vastustajan taakse)
+				lista.push_back(Siirto(asema._ohestaLyontiSarake, 5));
+		}
+		//Tehdään sama mustien sotilaille
+		else if (alkuRivi == 3 && vari == 1) {
+			if (asema._lauta[asema._ohestaLyontiSarake][3] && asema._lauta[asema._ohestaLyontiSarake][3]->getKoodi() == VS) 
+				lista.push_back(Siirto(asema._ohestaLyontiSarake, 2));
+		}
+	}
 };
 
 void Ratsu::annaSiirrot(std::list<Siirto>& lista, Ruutu& ruutu, Asema& asema, int vari) {

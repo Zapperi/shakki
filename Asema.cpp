@@ -347,6 +347,43 @@ void Asema::annaLaillisetSiirrot(list<Siirto>& lista) {
 			this->_lauta[i][j]->annaSiirrot(lista, Ruutu(i, j), *this, vari); // myˆh‰inen sidonta!
 		}
 	}
+	//Lis‰t‰‰n listaan tornituksien liikkeet
+	if (vari == 0) {
+		//valkean lyhyt linna
+		if (!this->getOnkoValkeaKuningasLiikkunut() && !this->getOnkoValkeaKTliikkunut()
+			&& onkoRuutuTurvallinen(this, &Ruutu(4, 0), !vari)
+			&& onkoRuutuTurvallinen(this, &Ruutu(5, 0), !vari) && onkoRuutuTurvallinen(this, &Ruutu(6, 0), !vari)
+			&& this->_lauta[5][0] == NULL && this->_lauta[6][0] == NULL) {
+			//p‰ivitet‰‰n listaan lyhytlinna
+			lista.push_back(Siirto(true, false)); // lis‰t‰‰n listaan lyhyt linna
+		}
+		//valkean pitk‰ linna
+		if (!this->getOnkoValkeaKuningasLiikkunut() && !this->getOnkoValkeaDTliikkunut()
+			&& onkoRuutuTurvallinen(this, &Ruutu(4, 0), !vari)
+			&& onkoRuutuTurvallinen(this, &Ruutu(3, 0), !vari) && onkoRuutuTurvallinen(this, &Ruutu(3, 0), !vari)
+			&& this->_lauta[3][0] == NULL && this->_lauta[2][0] == NULL) {
+			//p‰ivitet‰‰n listaan lyhytlinna
+			lista.push_back(Siirto(false, true)); // lis‰t‰‰n listaan lyhyt linna
+		}
+	}
+	else{
+		//mustan lyhyt linna
+		if (!this->getOnkoMustaKuningasLiikkunut() && !this->getOnkoMustaKTliikkunut()
+			&& onkoRuutuTurvallinen(this, &Ruutu(4, 7), !vari)
+			&& onkoRuutuTurvallinen(this, &Ruutu(5, 7), !vari) && onkoRuutuTurvallinen(this, &Ruutu(6, 7), !vari)
+			&& this->_lauta[5][7] == NULL && this->_lauta[6][7] == NULL) {
+			//p‰ivitet‰‰n listaan lyhytlinna
+			lista.push_back(Siirto(true, false)); // lis‰t‰‰n listaan lyhyt linna
+		}
+		//mustan pitk‰ linna
+		if (!this->getOnkoMustaKuningasLiikkunut() && !this->getOnkoMustaDTliikkunut()
+			&& onkoRuutuTurvallinen(this, &Ruutu(4, 7), !vari)
+			&& onkoRuutuTurvallinen(this, &Ruutu(3, 7), !vari) && onkoRuutuTurvallinen(this, &Ruutu(2, 7), !vari)
+			&& this->_lauta[3][7] == NULL && this->_lauta[2][7] == NULL) {
+			//p‰ivitet‰‰n listaan lyhytlinna
+			lista.push_back(Siirto(false, true)); // lis‰t‰‰n listaan lyhyt linna
+		}
+	}
 
 }
 
