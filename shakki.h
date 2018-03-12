@@ -43,10 +43,10 @@ public:
 	Ruutu getLoppuruutu();
 	bool onkoLyhytLinna();
 	bool onkoPitkälinna();
+	Nappula* _nappulanKorotus = 0;
 private:
 	Ruutu _alkuRuutu;
 	Ruutu _loppuRuutu;
-	int _miksiKorotetaan = 0;
 	bool _lyhytLinna = false;
 	bool _pitkalinna = false;
 };
@@ -138,6 +138,7 @@ public:
 	Ruutu vkruutu;
 	Ruutu mkruutu;
 	void annaLaillisetSiirrot(list<Siirto>& lista);
+	void lisaaSotilaanKorotukset(Siirto* siirto, list<Siirto>& lista, Asema* asema);
 	bool onkoRuutuTurvallinen(Ruutu* kunkkuRuutu, int vastustajanVari);
 	bool onkoRuutuTurvallinen(Asema *tempAsema, Ruutu* kunkkuRuutu, int vastustajanVari);
 	void listanSiivous(list<Siirto>& lista, int vari);
@@ -157,8 +158,6 @@ private:
 	bool _onkoMustaDTliikkunut = false;
 	bool _onkoMustaKTliikkunut = false;
 };
-
-
 
 class Kayttoliittyma {
 

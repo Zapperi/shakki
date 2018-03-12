@@ -350,6 +350,43 @@ void Asema::annaLaillisetSiirrot(list<Siirto>& lista) {
 
 }
 
+void lisaaSotilaanKorotukset(Siirto* siirto, list<Siirto>& lista, Asema* asema) {
+	if (siirto->getLoppuruutu().getRivi() == 7) {
+		// valkea korottaa
+		siirto->_nappulanKorotus = asema->vd;
+		lista.push_back(*siirto);
+
+		Siirto torniksi = *siirto;
+		torniksi._nappulanKorotus = asema->vt;
+		lista.push_back(torniksi);
+
+		Siirto lahetiksi = *siirto;
+		lahetiksi._nappulanKorotus = asema->vl;
+		lista.push_back(lahetiksi);
+
+		Siirto ratsuksi = *siirto;
+		ratsuksi._nappulanKorotus = asema->vr;
+		lista.push_back(ratsuksi);
+	}
+	else if (siirto->getLoppuruutu().getRivi() == 0) {
+		// musta korottaa
+		siirto->_nappulanKorotus = asema->md;
+		lista.push_back(*siirto);
+
+		Siirto torniksi = *siirto;
+		torniksi._nappulanKorotus = asema->mt;
+		lista.push_back(torniksi);
+
+		Siirto lahetiksi = *siirto;
+		lahetiksi._nappulanKorotus = asema->ml;
+		lista.push_back(lahetiksi);
+
+		Siirto ratsuksi = *siirto;
+		ratsuksi._nappulanKorotus = asema->mr;
+		lista.push_back(ratsuksi);
+	}
+}
+
 bool Asema::onkoRuutuTurvallinen(Asema *tempAsema, Ruutu* kunkkuRuutu, int vastustajanVari) {
 	list<Siirto> vastustajanSiirrot;
 	//V‰reitt‰in k‰yd‰‰n l‰pi kaikki ruudut ja niiss‰ olevan nappulan siirrot ker‰t‰‰n vastustajan siirtolistaan
