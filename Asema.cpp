@@ -16,8 +16,7 @@ Asema::Asema() {
 }
 
 void Asema::paivitaAsema(Siirto* siirto) {
-
-
+	//Linnoitus liikkeet
 	if (siirto->onkoLyhytLinna()) {
 		if (_siirtovuoro == 0 && !_onkoValkeaKuningasLiikkunut && !_onkoValkeaKTliikkunut) {
 			//Tehd‰‰n Valkoisen lyhyt tornitus.
@@ -62,38 +61,48 @@ void Asema::paivitaAsema(Siirto* siirto) {
 			mkruutu.setSarake(2);
 		}
 	}
+	//Kaikki muut liikkeet
 	else {
 		Ruutu ekaruutu = siirto->getAlkuruutu();
 		Ruutu tokaruutu = siirto->getLoppuruutu();
-
-		if (ekaruutu.getRivi() == 0 && ekaruutu.getSarake() == 0 || tokaruutu.getRivi() == 0 && tokaruutu.getSarake() == 0) {
-			_onkoValkeaDTliikkunut = true;
-
+		int alkuRivi = ekaruutu.getRivi();
+		int loppuRivi = tokaruutu.getRivi();
+		int alkuSarake = ekaruutu.getSarake();
+		int loppuSarake = tokaruutu.getSarake();
+		//Tarkistus ett‰ liikutettava ei ole nullptr
+		if (_lauta[alkuRivi][alkuSarake]) {
+			//Ohastelyˆnti siirto
+			if ((_lauta[alkuRivi][alkuSarake]->getKoodi() == VS || _lauta[alkuRivi][alkuSarake]->getKoodi() == MS) &&
+				(alkuRivi - loppuRivi == 2 || alkuRivi - loppuRivi == -2))
+				_ohestaLyontiSarake = siirto->getAlkuruutu().getSarake();
+			if ((_lauta[alkuRivi][alkuSarake]->getKoodi() == VS || _lauta[alkuRivi][alkuSarake]->getKoodi() == MS) &&
+				(alkuSarake != loppuSarake) && (_lauta[loppuRivi][loppuSarake] == NULL))
+				_lauta[alkuRivi][loppuSarake] = NULL;
+			//Nappulan korotous
+			else if (siirto->_nappulanKorotus != NULL) {
+				_lauta[loppuRivi][loppuSarake] = siirto->_nappulanKorotus;
+				_lauta[ekaruutu.getRivi()][ekaruutu.getSarake()] = nullptr;
+			}
+			else {
+				//Tornien ja kuningaiden liikkuminen
+				if (ekaruutu.getRivi() == 0 && ekaruutu.getSarake() == 0 || tokaruutu.getRivi() == 0 && tokaruutu.getSarake() == 0)
+					_onkoValkeaDTliikkunut = true;
+				if (ekaruutu.getRivi() == 0 && ekaruutu.getSarake() == 7 || tokaruutu.getRivi() == 0 && tokaruutu.getSarake() == 7)
+					_onkoValkeaKTliikkunut = true;
+				if (ekaruutu.getRivi() == 0 && ekaruutu.getSarake() == 4 || tokaruutu.getRivi() == 0 && tokaruutu.getSarake() == 4)
+					_onkoValkeaKuningasLiikkunut = true;
+				if (ekaruutu.getRivi() == 7 && ekaruutu.getSarake() == 0 || tokaruutu.getRivi() == 7 && tokaruutu.getSarake() == 0)
+					_onkoMustaDTliikkunut = true;
+				if (ekaruutu.getRivi() == 7 && ekaruutu.getSarake() == 7 || tokaruutu.getRivi() == 7 && tokaruutu.getSarake() == 7)
+					_onkoMustaKTliikkunut = true;
+				if (ekaruutu.getRivi() == 7 && ekaruutu.getSarake() == 4 || tokaruutu.getRivi() == 7 && tokaruutu.getSarake() == 4)
+					_onkoMustaKuningasLiikkunut = true;
+				Nappula* siirettava = _lauta[ekaruutu.getRivi()][ekaruutu.getSarake()];
+				_lauta[tokaruutu.getRivi()][tokaruutu.getSarake()] = siirettava;
+				_lauta[ekaruutu.getRivi()][ekaruutu.getSarake()] = nullptr;
+			}
 		}
-		if (ekaruutu.getRivi() == 0 && ekaruutu.getSarake() == 7 || tokaruutu.getRivi() == 0 && tokaruutu.getSarake() == 7) {
-			_onkoValkeaKTliikkunut = true;
-
-		}
-		if (ekaruutu.getRivi() == 0 && ekaruutu.getSarake() == 4 || tokaruutu.getRivi() == 0 && tokaruutu.getSarake() == 4) {
-			_onkoValkeaKuningasLiikkunut = true;
-
-		}
-		if (ekaruutu.getRivi() == 7 && ekaruutu.getSarake() == 0 || tokaruutu.getRivi() == 7 && tokaruutu.getSarake() == 0) {
-			_onkoMustaDTliikkunut = true;
-
-		}
-		if (ekaruutu.getRivi() == 7 && ekaruutu.getSarake() == 7 || tokaruutu.getRivi() == 7 && tokaruutu.getSarake() == 7) {
-			_onkoMustaKTliikkunut = true;
-
-		}
-		if (ekaruutu.getRivi() == 7 && ekaruutu.getSarake() == 4 || tokaruutu.getRivi() == 7 && tokaruutu.getSarake() == 4) {
-			_onkoMustaKuningasLiikkunut = true;
-
-		}
-
-		Nappula* siirettava = _lauta[ekaruutu.getRivi()][ekaruutu.getSarake()];
-		_lauta[tokaruutu.getRivi()][tokaruutu.getSarake()] = siirettava;
-		_lauta[ekaruutu.getRivi()][ekaruutu.getSarake()] = nullptr;
+		
 	}
 };
 
@@ -279,35 +288,24 @@ MinMaxPaluu Asema::minimax(int syvyys)
 }
 
 MinMaxPaluu Asema::maxi(int syvyys) {
-	Ruutu kuninkaanRuutu;
 	double arvo;
 	Asema uusiAsema;
 	Siirto parasSiirto;
 	MinMaxPaluu paluu;
 	// Tarkasta onko matti tai patti, jos on niin poistu asap, matti -100000, patti 0
 	if (lista.size() == 0) {
-		//selvit‰ kuninkaan ruutu
-		for (int x = 0; x < 8; x++) {
-			for (int y = 0; y < 8; y++) {
-				if (this->_lauta[x][y] != NULL) {
-					if (this->_lauta[x][y]->getKoodi() == VK) {
-						kuninkaanRuutu.setSarake(x);
-						kuninkaanRuutu.setRivi(y);
-					}
-				}
-			}
-		}
 		//matti
-		if (this->onkoRuutuTurvallinen(&kuninkaanRuutu, 1)) {
+		if (!this->onkoRuutuTurvallinen(&vkruutu, 1)) {
 			paluu.evaluointiArvo = -1000000;
 			return paluu;
 		}
 		//patti
-		if (!this->onkoRuutuTurvallinen(&kuninkaanRuutu, 1)) {
+		if (this->onkoRuutuTurvallinen(&vkruutu, 1)) {
 			paluu.evaluointiArvo = 0;
 			return paluu;
 		}
 	}
+	
 	// Jos ei ole matti tai patti niin k‰y pelipuuta l‰pi rekursiivisesti
 	if (syvyys == 0) { // rekursion kanta
 		paluu.evaluointiArvo = this->evaluoi();
@@ -329,33 +327,19 @@ MinMaxPaluu Asema::maxi(int syvyys) {
 }
 
 MinMaxPaluu Asema::mini(int syvyys) {
-	std::list<Siirto> lista;
-	Ruutu kuninkaanRuutu;
-	this->annaLaillisetSiirrot(lista);
 	double arvo;
 	Asema uusiAsema;
 	Siirto parasSiirto;
 	MinMaxPaluu paluu;
-	// Tarkasta onko matti tai patti, jos on niin poistu asap, matti -100000, patti 0
+	// Tarkasta onko matti tai patti, jos on niin poistu asap, matti 100000, patti 0
 	if (lista.size() == 0) {
-		//selvit‰ kuninkaan ruutu
-		for (int x = 0; x < 8; x++) {
-			for (int y = 0; y < 8; y++) {
-				if (this->_lauta[x][y] != NULL) {
-					if (this->_lauta[x][y]->getKoodi() == MK) {
-						kuninkaanRuutu.setSarake(x);
-						kuninkaanRuutu.setRivi(y);
-					}
-				}
-			}
-		}
 		//matti
-		if (this->onkoRuutuTurvallinen(&kuninkaanRuutu, 0)) {
+		if (!this->onkoRuutuTurvallinen(&mkruutu, 0)) {
 			paluu.evaluointiArvo = 1000000;
 			return paluu;
 		}
 		//patti
-		if (!this->onkoRuutuTurvallinen(&kuninkaanRuutu, 0)) {
+		if (this->onkoRuutuTurvallinen(&mkruutu, 0)) {
 			paluu.evaluointiArvo = 0;
 			return paluu;
 		}
@@ -383,7 +367,6 @@ MinMaxPaluu Asema::mini(int syvyys) {
 
 void Asema::annaLaillisetSiirrot(list<Siirto>& lista) {
 	int vari = this->getSiirtovuoro();
-
 	for (int i = 0; i < 8; i++) {
 		for (int j = 0; j < 8; j++) {
 			//Ei kysele tyhjilt‰ ruuduilta nappulan nime‰
@@ -511,9 +494,9 @@ bool Asema::onkoRuutuTurvallinen(Ruutu* kunkkuRuutu, int vastustajanVari) {
 	}
 	// Katsoo onko lis‰tyiss‰ siirroissa ruutu jossa sijaitsee kuningas.
 	bool ruutuOk = true;
-	for (auto siirto : vastustajanSiirrot)
+	for (auto vsiirto : vastustajanSiirrot)
 	{
-		if (kunkkuRuutu->getSarake() == siirto.getLoppuruutu().getSarake() && kunkkuRuutu->getRivi() == siirto.getLoppuruutu().getRivi()) {
+		if (kunkkuRuutu->getSarake() == vsiirto.getLoppuruutu().getSarake() && kunkkuRuutu->getRivi() == vsiirto.getLoppuruutu().getRivi()) {
 			ruutuOk = false;
 			break;
 		}
@@ -526,18 +509,25 @@ void Asema::listanSiivous(list<Siirto>& lista, int pelaajaVari) {
 	Asema tempAsema;
 	if (pelaajaVari == 0) {
 		for (auto siirto : lista) {
-			//luodaan testiasema, jossa tehd‰‰n siirto ja tarkistetaan mahd. vaara shakkitilanne.
+			//luodaan testiasema, jossa tehd‰‰n siirto ja tarkistetaan mahd. vaarallinen shakkitilanne.
 			tempAsema = *this;
 			tempAsema.paivitaAsema(&siirto);
 			//Jos pelaaja on valkoinen (0), k‰y l‰pi onko kuninkaan ruutu uhattu.
+			//Jos aloitusruutu on kunkku ruutu, katsotaan kunkkuruudun turvallisuus
+			if (siirto.getAlkuruutu() == vkruutu)
+				if (tempAsema.onkoRuutuTurvallinen(&tempAsema, &siirto.getLoppuruutu(), 1))
+					tempList.push_back(siirto);			
 			if (tempAsema.onkoRuutuTurvallinen(&tempAsema, &tempAsema.vkruutu, 1))
 				tempList.push_back(siirto);
 		}
 	}
-	else {
+	if (pelaajaVari = 1) {
 		for (auto siirto : lista) {
 			tempAsema = *this;
 			tempAsema.paivitaAsema(&siirto);
+			if (siirto.getAlkuruutu() == mkruutu)
+				if (tempAsema.onkoRuutuTurvallinen(&tempAsema, &siirto.getLoppuruutu(), 0))
+					tempList.push_back(siirto);
 			if (tempAsema.onkoRuutuTurvallinen(&tempAsema, &tempAsema.mkruutu, 0))
 				tempList.push_back(siirto);
 		}

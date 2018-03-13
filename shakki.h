@@ -19,12 +19,10 @@ enum
 class Asema;
 class MinMaxPaluu;
 class Nappula;
-<<<<<<< HEAD
-=======
 class Siirto;
 class Ruutu;
 class Kayttoliittyma;
->>>>>>> 74ea3e09d983338bff0d99529ccf39d149085968
+
 
 class Ruutu {
 public:
@@ -174,6 +172,8 @@ public:
 	Kayttoliittyma();
 	Asema* _asema;
 	void piirraLauta();
+	int vastustajanVari;
+	void annaVastustajanVari();
 	Siirto annaVastustajanSiirto(Siirto siirto);
 	Siirto kasittely(string syote, int vari);
 };

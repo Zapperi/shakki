@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿  Asema.cpp
 c:\users\auvo\documents\sahki\shakki\shakki.h(108): warning C4584: 'Daami': base-class 'Nappula' is already a base-class of 'Lahetti'
   c:\users\auvo\documents\sahki\shakki\shakki.h(55): note: see declaration of 'Nappula'
@@ -12,3 +13,10 @@ c:\users\auvo\documents\sahki\shakki\asema.cpp(194): error C2059: syntax error: 
 c:\users\auvo\documents\sahki\shakki\asema.cpp(194): error C2143: syntax error: missing ';' before '}'
 c:\users\auvo\documents\sahki\shakki\asema.cpp(197): error C2143: syntax error: missing ';' before '{'
 c:\users\auvo\documents\sahki\shakki\asema.cpp(197): error C2447: '{': missing function header (old-style formal list?)
+=======
+﻿  Kayttoliittyma.cpp
+c:\users\omistaja\desktop\shakki_projekti\shakki\shakki.h(111): warning C4584: 'Daami': base-class 'Nappula' is already a base-class of 'Lahetti'
+  c:\users\omistaja\desktop\shakki_projekti\shakki\shakki.h(58): note: see declaration of 'Nappula'
+  c:\users\omistaja\desktop\shakki_projekti\shakki\shakki.h(93): note: see declaration of 'Lahetti'
+  Shakki.vcxproj -> C:\Users\Omistaja\Desktop\Shakki_Projekti\shakki\Shakki\x64\Debug\Shakki.exe
+>>>>>>> b05d6c2f990b1d916ccefc87b1ebee9a64886487

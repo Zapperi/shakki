@@ -10,6 +10,14 @@ Kayttoliittyma::Kayttoliittyma() {
 	_asema = new Asema();
 }
 
+void Kayttoliittyma::annaVastustajanVari(){
+	int vari;
+	wcout << L"Anna syotettavan pelaajan vari: 0(Valkoinen), 1(Musta):\n";
+	wcin >> vari;
+	cin.ignore();
+	this->vastustajanVari = vari;
+}
+
 void Kayttoliittyma::piirraLauta() {
 	for (int i = 7; i >= 0; i--) {
 		//Lisätään numerot vasempaan laitaan
@@ -49,8 +57,7 @@ void Kayttoliittyma::piirraLauta() {
 Siirto Kayttoliittyma::kasittely(string syote, int vari) {
 	//Saa syötteen muodossa esim ( S1a-3a  )
 	int alkurivi, alkusarake, loppurivi, loppusarake;
-	char nappulanMerkki; //<-- muutetaan myöhemmin
-	nappulanMerkki = syote[0]; // <-- Ei vielä käytetä mihinkään
+	char nappulanMerkki = syote[0]; //<-- muutetaan myöhemmin
 
 	if (syote == "O-O" || syote == "o-o") {
 		Siirto siirto(true, false);
@@ -156,10 +163,9 @@ Siirto Kayttoliittyma::kasittely(string syote, int vari) {
 		}
 		Ruutu alkuruutu(alkurivi, alkusarake);
 		Ruutu loppuruutu(loppurivi, loppusarake);
-		_asema->lista.clear();
-		//_asema->_lauta[alkurivi][alkusarake]->annaSiirrot(_asema->lista,alkuruutu, *_asema, vari);
+		/*_asema->lista.clear();
 		_asema->annaLaillisetSiirrot(_asema->lista);
-		_asema->listanSiivous(_asema->lista, vari);
+		_asema->listanSiivous(_asema->lista, vari);*/
 		if (vari == 0) {
 			if (alkuruutu == _asema->vkruutu)
 				_asema->vkruutu = loppuruutu;
@@ -170,6 +176,32 @@ Siirto Kayttoliittyma::kasittely(string syote, int vari) {
 		}
 		_asema->_lauta[alkurivi][alkusarake]->Onkoliikutettu = true;
 		Siirto siirto(alkuruutu, loppuruutu);
+		char korotus;
+		if (nappulanMerkki == 's' && (loppurivi == 0 && vari == 1 || loppurivi == 7 && vari == 0)) {
+			wcout << "Miksi nappulaksi haluat korottaa? (esim. D)\n";
+			cin >> korotus;
+			cin.ignore();
+			if (loppurivi == 7) {
+				if (korotus == 'D' || korotus == 'd')
+					siirto._nappulanKorotus = _asema->vd;
+				if (korotus == 'T' || korotus == 't') 
+					siirto._nappulanKorotus = _asema->vt;
+				if (korotus == 'R' || korotus == 'r') 
+					siirto._nappulanKorotus = _asema->vr;
+				if (korotus == 'L' || korotus == 'l') 
+					siirto._nappulanKorotus = _asema->vl;
+			}
+			if (loppurivi == 0) {
+				if (korotus == 'D' || korotus == 'd')
+					siirto._nappulanKorotus = _asema->md;
+				if (korotus == 'T' || korotus == 't') 
+					siirto._nappulanKorotus = _asema->mt;
+				if (korotus == 'R' || korotus == 'r') 
+					siirto._nappulanKorotus = _asema->mr;
+				if (korotus == 'L' || korotus == 'l') 
+					siirto._nappulanKorotus = _asema->ml;
+			}
+		}
 		return siirto;
 	}
 }
