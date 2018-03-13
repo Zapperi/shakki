@@ -133,31 +133,31 @@ double Asema::evaluoi() {
 				switch (_lauta[i][j]->getKoodi()) {
 				case VS:
 					_arvo += S_arvo;
-					
+					break;
 				case VR:
 					_arvo += R_arvo;
-					
+					break;
 				case VL:
 					_arvo += L_arvo;
-					
+					break;
 				case VT:
 					_arvo += T_arvo;
-					
+					break;
 				case VD:
 					_arvo += D_arvo;
-					
+					break;
 				case MS:
 					_arvo -= S_arvo; 
-					
+					break;
 				case MR:
 					_arvo -= R_arvo; 
-					
+					break;
 				case ML:
 					_arvo -= L_arvo;
-					
+					break;
 				case MT:
 					_arvo -= T_arvo;
-					
+					break;
 				case MD:
 					_arvo -= D_arvo;
 					break;
@@ -249,35 +249,24 @@ MinMaxPaluu Asema::minimax(int syvyys)
 }
 
 MinMaxPaluu Asema::maxi(int syvyys) {
-	Ruutu kuninkaanRuutu;
 	double arvo;
 	Asema uusiAsema;
 	Siirto parasSiirto;
 	MinMaxPaluu paluu;
 	// Tarkasta onko matti tai patti, jos on niin poistu asap, matti -100000, patti 0
 	if (lista.size() == 0) {
-		//selvitä kuninkaan ruutu
-		for (int x = 0; x < 8; x++) {
-			for (int y = 0; y < 8; y++) {
-				if (this->_lauta[x][y] != NULL) {
-					if (this->_lauta[x][y]->getKoodi() == VK) {
-						kuninkaanRuutu.setSarake(x);
-						kuninkaanRuutu.setRivi(y);
-					}
-				}
-			}
-		}
 		//matti
-		if (this->onkoRuutuTurvallinen(&kuninkaanRuutu, 1)) {
+		if (this->onkoRuutuTurvallinen(&vkruutu, 1)) {
 			paluu.evaluointiArvo = -1000000;
 			return paluu;
 		}
 		//patti
-		if (!this->onkoRuutuTurvallinen(&kuninkaanRuutu, 1)) {
+		if (!this->onkoRuutuTurvallinen(&vkruutu, 1)) {
 			paluu.evaluointiArvo = 0;
 			return paluu;
 		}
 	}
+	
 	// Jos ei ole matti tai patti niin käy pelipuuta läpi rekursiivisesti
 	if (syvyys == 0) { // rekursion kanta
 		paluu.evaluointiArvo = this->evaluoi();
@@ -300,7 +289,6 @@ MinMaxPaluu Asema::maxi(int syvyys) {
 
 MinMaxPaluu Asema::mini(int syvyys) {
 	std::list<Siirto> lista;
-	Ruutu kuninkaanRuutu;
 	this->annaLaillisetSiirrot(lista);
 	double arvo;
 	Asema uusiAsema;
@@ -308,24 +296,13 @@ MinMaxPaluu Asema::mini(int syvyys) {
 	MinMaxPaluu paluu;
 	// Tarkasta onko matti tai patti, jos on niin poistu asap, matti -100000, patti 0
 	if (lista.size() == 0) {
-		//selvitä kuninkaan ruutu
-		for (int x = 0; x < 8; x++) {
-			for (int y = 0; y < 8; y++) {
-				if (this->_lauta[x][y] != NULL) {
-					if (this->_lauta[x][y]->getKoodi() == MK) {
-						kuninkaanRuutu.setSarake(x);
-						kuninkaanRuutu.setRivi(y);
-					}
-				}
-			}
-		}
 		//matti
-		if (this->onkoRuutuTurvallinen(&kuninkaanRuutu, 0)) {
+		if (this->onkoRuutuTurvallinen(&mkruutu, 0)) {
 			paluu.evaluointiArvo = 1000000;
 			return paluu;
 		}
 		//patti
-		if (!this->onkoRuutuTurvallinen(&kuninkaanRuutu, 0)) {
+		if (!this->onkoRuutuTurvallinen(&mkruutu, 0)) {
 			paluu.evaluointiArvo = 0;
 			return paluu;
 		}
