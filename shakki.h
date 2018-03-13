@@ -171,6 +171,8 @@ public:
 	Kayttoliittyma();
 	Asema* _asema;
 	void piirraLauta();
+	int vastustajanVari;
+	void annaVastustajanVari();
 	Siirto annaVastustajanSiirto(Siirto siirto);
 	Siirto kasittely(string syote, int vari);
 };
