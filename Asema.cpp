@@ -133,31 +133,31 @@ double Asema::evaluoi() {
 				switch (_lauta[i][j]->getKoodi()) {
 				case VS:
 					_arvo += S_arvo;
-					break;
+					
 				case VR:
 					_arvo += R_arvo;
-					break;
+					
 				case VL:
 					_arvo += L_arvo;
-					break;
+					
 				case VT:
 					_arvo += T_arvo;
-					break;
+					
 				case VD:
 					_arvo += D_arvo;
-					break;
+					
 				case MS:
 					_arvo -= S_arvo; 
-					break;
+					
 				case MR:
 					_arvo -= R_arvo; 
-					break;
+					
 				case ML:
 					_arvo -= L_arvo;
-					break;
+					
 				case MT:
 					_arvo -= T_arvo;
-					break;
+					
 				case MD:
 					_arvo -= D_arvo;
 					break;
