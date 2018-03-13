@@ -133,16 +133,12 @@ bool Asema::getOnkoMustaKTliikkunut() {
 
 double Asema::evaluoi() {
 	double _arvo = 0;
-	double D_arvo = 9, T_arvo = 5, L_arvo = 3.5, R_arvo = 3, S_arvo = 1;
+	double D_arvo = 9, T_arvo = 5, L_arvo = 3.5, R_arvo = 3, S_arvo = 1, K_arvo = 100;
 	for (int i = 0; i < 8; i++) {
 		for (int j = 0; j < 8; j++) {
-<<<<<<< HEAD
-			if(_lauta[i][j]){
-=======
 			if (!_lauta[i][j])
 				continue;
 			else {
->>>>>>> 74ea3e09d983338bff0d99529ccf39d149085968
 				switch (_lauta[i][j]->getKoodi()) {
 				case VS:
 					_arvo += S_arvo;
@@ -159,18 +155,14 @@ double Asema::evaluoi() {
 				case VD:
 					_arvo += D_arvo;
 					break;
+				case VK:
+					_arvo += K_arvo;
+					break;
 				case MS:
-<<<<<<< HEAD
 					_arvo -= S_arvo;
 					break;
 				case MR:
 					_arvo -= R_arvo;
-=======
-					_arvo -= S_arvo; 
-					break;
-				case MR:
-					_arvo -= R_arvo; 
->>>>>>> 74ea3e09d983338bff0d99529ccf39d149085968
 					break;
 				case ML:
 					_arvo -= L_arvo;
@@ -181,11 +173,9 @@ double Asema::evaluoi() {
 				case MD:
 					_arvo -= D_arvo;
 					break;
-<<<<<<< HEAD
-				}
-				if (_lauta[i+1][j] && (_lauta[i][j]->getKoodi() == VK && i + 1 < 8) || (_lauta[i-1][j] && _lauta[i][j]->getKoodi() == VK && i - 1 > 0)) {
-					if (_lauta[i + 1][j]->getKoodi() == VT) {
-=======
+				case MK:
+					_arvo += K_arvo;
+					break;
 				default:
 					if (!_arvo) {
 						break;
@@ -193,45 +183,97 @@ double Asema::evaluoi() {
 				}
 				if (_lauta[i][j] && (_lauta[i][j]->getKoodi() == VK && i + 1 < 8) || _lauta[i][j] && (_lauta[i][j]->getKoodi() == VK && i - 1 > 0)) {
 					if (i < 7 && (_lauta[i + 1][j] && (_lauta[i + 1][j]->getKoodi() == VT))) {
->>>>>>> 74ea3e09d983338bff0d99529ccf39d149085968
 						if (_vuorolkm < 11) {
-							_arvo += 0.6;
+							_arvo += 2;
 						}
 					}
-<<<<<<< HEAD
-					if (_lauta[i - 1][j]->getKoodi() == VT) {
-=======
-					
+
 					if (i != 0 && (_lauta[i - 1][j] && (_lauta[i - 1][j]->getKoodi() == VT))) {
->>>>>>> 74ea3e09d983338bff0d99529ccf39d149085968
 						if (_vuorolkm < 11) {
-							_arvo += 0.8;
+							_arvo += 3;
 						}
 					}
 				}
-<<<<<<< HEAD
-				if ((_lauta[i + 1][j] && _lauta[i][j]->getKoodi() == MK && i + 1 < 8) || (_lauta[i - 1][j] && _lauta[i][j]->getKoodi() == MK && i - 1 > 0)) {
-					if (_lauta[i + 1][j]->getKoodi() == MT) {
-=======
 				if (_lauta[i][j] && (_lauta[i][j]->getKoodi() == MK && i + 1 < 8) || _lauta[i][j] && (_lauta[i][j]->getKoodi() == MK && i - 1 > 0)) {
 					if (i < 7 && (_lauta[i + 1][j] && (_lauta[i + 1][j]->getKoodi() == MT))) {
->>>>>>> 74ea3e09d983338bff0d99529ccf39d149085968
 						if (_vuorolkm < 11) {
-							_arvo -= 0.6;
+							_arvo -= 2;
 						}
 					}
-<<<<<<< HEAD
-					if (_lauta[i - 1][j]->getKoodi() == MT) {
-=======
 					if (i != 0 && (_lauta[i - 1][j] && (_lauta[i - 1][j]->getKoodi() == MT))) {
->>>>>>> 74ea3e09d983338bff0d99529ccf39d149085968
 						if (_vuorolkm < 11) {
-							_arvo -= 0.8;
+							_arvo -= 3;
 						}
 					}
 				}
+
+				//Alkaa
+
+
+				if (_lauta[3][3] != NULL && (_lauta[3][3]->getKoodi() == VS || _lauta[3][3]->getKoodi() == VR)) {
+					_arvo += 0.25;
+				}
+				if (_lauta[4][3] && (_lauta[4][3]->getKoodi() == VS || _lauta[4][3]->getKoodi() == VR)) {
+					_arvo += 0.25;
+				}
+				if (_lauta[3][4] != NULL && (_lauta[3][4]->getKoodi() == VS || _lauta[3][4]->getKoodi() == VR)) {
+					_arvo += 0.25;
+				}
+				if (_lauta[4][4] != NULL && (_lauta[4][4]->getKoodi() == VS || _lauta[4][4]->getKoodi() == VR)) {
+					_arvo += 0.25;
+				}
+				//valkeille laitakeskusta
+				for (int x = 2; x < 6; x++) {
+					if (_lauta[x][2] != NULL && (_lauta[x][2]->getKoodi() == VS || _lauta[x][2]->getKoodi() == VR)) {
+						_arvo += 0.11;
+					}
+					if (_lauta[x][5] != NULL && (_lauta[x][5]->getKoodi() == VS || _lauta[x][5]->getKoodi() == VR)) {
+						_arvo += 0.11;
+					}
+				}
+				for (int y = 3; y < 5; y++) {
+					if (_lauta[2][y] != NULL && (_lauta[2][y]->getKoodi() == VS || _lauta[2][y]->getKoodi() == VR)) {
+						_arvo += 0.11;
+					}
+					if (_lauta[5][y] != NULL && (_lauta[5][y]->getKoodi() == VS || _lauta[5][y]->getKoodi() == VR)) {
+						_arvo += 0.11;
+					}
+				}
+
+				//mustille ydinkeskusta
+				if (_lauta[3][3] != NULL && (_lauta[3][3]->getKoodi() == MS || _lauta[3][3]->getKoodi() == MR)) {
+					_arvo -= 0.25;
+				}
+				if (_lauta[4][3] != NULL && (_lauta[4][3]->getKoodi() == MS || _lauta[4][3]->getKoodi() == MR)) {
+					_arvo -= 0.25;
+				}
+				if (_lauta[3][4] != NULL && (_lauta[3][4]->getKoodi() == MS || _lauta[3][4]->getKoodi() == MR)) {
+					_arvo -= 0.25;
+				}
+				if (_lauta[4][4] != NULL && (_lauta[4][4]->getKoodi() == MS || _lauta[4][4]->getKoodi() == MR)) {
+					_arvo -= 0.25;
+				}
+				//mustille laitakeskusta
+				for (int x = 2; x < 6; x++) {
+					if (_lauta[x][2] != NULL && (_lauta[x][2]->getKoodi() == MS || _lauta[x][2]->getKoodi() == MR)) {
+						_arvo -= 0.11;
+					}
+					if (_lauta[x][5] != NULL && (_lauta[x][5]->getKoodi() == MS || _lauta[x][5]->getKoodi() == MR)) {
+						_arvo -= 0.11;
+					}
+				}
+				for (int y = 3; y < 5; y++) {
+					if (_lauta[2][y] != NULL && (_lauta[2][y]->getKoodi() == MS || _lauta[2][y]->getKoodi() == MR)) {
+						_arvo -= 0.11;
+					}
+					if (_lauta[5][y] != NULL && (_lauta[5][y]->getKoodi() == MS || _lauta[5][y]->getKoodi() == MR)) {
+						_arvo -= 0.11;
+					}
+				}
+
+				//Loppuu
 			}
-			
+
 		}
 	}
 
