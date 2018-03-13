@@ -100,7 +100,13 @@ Siirto Kayttoliittyma::kasittely(string syote, int vari) {
 			alkusarake = 7;
 			break;
 		default:
-			wcout << L"No et osannut..";
+			wcout << L"No et osannut.." << endl;
+			wcout << "Anna uusi syote : ";
+			string temp;
+			cin.clear();
+			getline(cin, temp);
+			kasittely(temp, vari);
+			break;
 		}
 		//Selvitetään loppuruudun koordinaatit
 		loppurivi = syote[5] - '0';
@@ -140,7 +146,13 @@ Siirto Kayttoliittyma::kasittely(string syote, int vari) {
 			loppusarake = 7;
 			break;
 		default:
-			wcout << L"No et osannut..";
+			wcout << L"No et osannut.." << endl;
+			wcout << "Anna uusi syote : ";
+			string temp;
+			cin.clear();
+			getline(cin, temp);
+			kasittely(temp, vari);
+			break;
 		}
 		Ruutu alkuruutu(alkurivi, alkusarake);
 		Ruutu loppuruutu(loppurivi, loppusarake);

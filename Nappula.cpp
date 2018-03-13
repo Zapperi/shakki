@@ -47,14 +47,14 @@ void Sotilas::annaSiirrot(std::list<Siirto>& lista, Ruutu& ruutu, Asema& asema, 
 			else
 				asema.lisaaSotilaanKorotukset(&temp, lista, &asema);
 			
-		}if (asema._lauta[alkuRivi + 1][alkuSarake - 1] != nullptr && asema._lauta[alkuRivi + 1][alkuSarake - 1]->getVari() == 1) {
+		}if (alkuRivi + 1 < 8 && alkuSarake - 1 > 0 && asema._lauta[alkuRivi + 1][alkuSarake - 1] != nullptr && asema._lauta[alkuRivi + 1][alkuSarake - 1]->getVari() == 1) {
 			Ruutu loppuRuutu(alkuRivi + 1, alkuSarake - 1);
 			Siirto temp(ruutu, loppuRuutu);
 			if (alkuRivi < 6)
 				lista.push_back(temp);
 			else
 				asema.lisaaSotilaanKorotukset(&temp, lista, &asema);
-		}if (asema._lauta[alkuRivi + 1][alkuSarake + 1] != nullptr && asema._lauta[alkuRivi + 1][alkuSarake + 1]->getVari() == 1) {
+		}if (alkuRivi + 1 < 8 && alkuSarake + 1 < 8 && asema._lauta[alkuRivi + 1][alkuSarake + 1] != nullptr && asema._lauta[alkuRivi + 1][alkuSarake + 1]->getVari() == 1) {
 			Ruutu loppuRuutu(alkuRivi + 1, alkuSarake + 1);
 			Siirto temp(ruutu, loppuRuutu);
 			if (alkuRivi < 6)
@@ -62,7 +62,7 @@ void Sotilas::annaSiirrot(std::list<Siirto>& lista, Ruutu& ruutu, Asema& asema, 
 			else
 				asema.lisaaSotilaanKorotukset(&temp, lista, &asema);
 		}
-		if (!Onkoliikutettu && asema._lauta[alkuRivi + 1][alkuSarake] == nullptr && asema._lauta[alkuRivi + 2][alkuSarake] == nullptr) {
+		if (!Onkoliikutettu &&  asema._lauta[alkuRivi + 1][alkuSarake] == nullptr && asema._lauta[alkuRivi + 2][alkuSarake] == nullptr) {
 			Ruutu loppuRuutu(alkuRivi + 2, alkuSarake);
 			Siirto temp(ruutu, loppuRuutu);
 			lista.push_back(temp);
@@ -88,14 +88,14 @@ void Sotilas::annaSiirrot(std::list<Siirto>& lista, Ruutu& ruutu, Asema& asema, 
 				lista.push_back(temp);
 			else
 				asema.lisaaSotilaanKorotukset(&temp, lista, &asema);
-		}if (asema._lauta[alkuRivi - 1][alkuSarake - 1] != nullptr && asema._lauta[alkuRivi - 1][alkuSarake - 1]->getVari() == 0) {
+		}if (alkuRivi - 1 > 0 && alkuSarake - 1 > 0 && asema._lauta[alkuRivi - 1][alkuSarake - 1] != nullptr && asema._lauta[alkuRivi - 1][alkuSarake - 1]->getVari() == 0) {
 			Ruutu loppuRuutu(alkuRivi - 1, alkuSarake - 1);
 			Siirto temp(ruutu, loppuRuutu);
 			if (alkuRivi > 1)
 				lista.push_back(temp);
 			else
 				asema.lisaaSotilaanKorotukset(&temp, lista, &asema);
-		}if (asema._lauta[alkuRivi - 1][alkuSarake + 1] != nullptr && asema._lauta[alkuRivi - 1][alkuSarake + 1]->getVari() == 0) {
+		}if (alkuRivi - 1 > 0 && alkuSarake + 1 < 0 && asema._lauta[alkuRivi - 1][alkuSarake + 1] != nullptr && asema._lauta[alkuRivi - 1][alkuSarake + 1]->getVari() == 0) {
 			Ruutu loppuRuutu(alkuRivi - 1, alkuSarake + 1);
 			Siirto temp(ruutu, loppuRuutu);
 			if (alkuRivi > 1)
