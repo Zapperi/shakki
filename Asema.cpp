@@ -127,7 +127,13 @@ double Asema::evaluoi() {
 	double D_arvo = 9, T_arvo = 5, L_arvo = 3.5, R_arvo = 3, S_arvo = 1;
 	for (int i = 0; i < 8; i++) {
 		for (int j = 0; j < 8; j++) {
+<<<<<<< HEAD
 			if(_lauta[i][j]){
+=======
+			if (!_lauta[i][j])
+				continue;
+			else {
+>>>>>>> 74ea3e09d983338bff0d99529ccf39d149085968
 				switch (_lauta[i][j]->getKoodi()) {
 				case VS:
 					_arvo += S_arvo;
@@ -145,10 +151,17 @@ double Asema::evaluoi() {
 					_arvo += D_arvo;
 					break;
 				case MS:
+<<<<<<< HEAD
 					_arvo -= S_arvo;
 					break;
 				case MR:
 					_arvo -= R_arvo;
+=======
+					_arvo -= S_arvo; 
+					break;
+				case MR:
+					_arvo -= R_arvo; 
+>>>>>>> 74ea3e09d983338bff0d99529ccf39d149085968
 					break;
 				case ML:
 					_arvo -= L_arvo;
@@ -159,26 +172,50 @@ double Asema::evaluoi() {
 				case MD:
 					_arvo -= D_arvo;
 					break;
+<<<<<<< HEAD
 				}
 				if (_lauta[i+1][j] && (_lauta[i][j]->getKoodi() == VK && i + 1 < 8) || (_lauta[i-1][j] && _lauta[i][j]->getKoodi() == VK && i - 1 > 0)) {
 					if (_lauta[i + 1][j]->getKoodi() == VT) {
+=======
+				default:
+					if (!_arvo) {
+						break;
+					}
+				}
+				if (_lauta[i][j] && (_lauta[i][j]->getKoodi() == VK && i + 1 < 8) || _lauta[i][j] && (_lauta[i][j]->getKoodi() == VK && i - 1 > 0)) {
+					if (i < 7 && (_lauta[i + 1][j] && (_lauta[i + 1][j]->getKoodi() == VT))) {
+>>>>>>> 74ea3e09d983338bff0d99529ccf39d149085968
 						if (_vuorolkm < 11) {
 							_arvo += 0.6;
 						}
 					}
+<<<<<<< HEAD
 					if (_lauta[i - 1][j]->getKoodi() == VT) {
+=======
+					
+					if (i != 0 && (_lauta[i - 1][j] && (_lauta[i - 1][j]->getKoodi() == VT))) {
+>>>>>>> 74ea3e09d983338bff0d99529ccf39d149085968
 						if (_vuorolkm < 11) {
 							_arvo += 0.8;
 						}
 					}
 				}
+<<<<<<< HEAD
 				if ((_lauta[i + 1][j] && _lauta[i][j]->getKoodi() == MK && i + 1 < 8) || (_lauta[i - 1][j] && _lauta[i][j]->getKoodi() == MK && i - 1 > 0)) {
 					if (_lauta[i + 1][j]->getKoodi() == MT) {
+=======
+				if (_lauta[i][j] && (_lauta[i][j]->getKoodi() == MK && i + 1 < 8) || _lauta[i][j] && (_lauta[i][j]->getKoodi() == MK && i - 1 > 0)) {
+					if (i < 7 && (_lauta[i + 1][j] && (_lauta[i + 1][j]->getKoodi() == MT))) {
+>>>>>>> 74ea3e09d983338bff0d99529ccf39d149085968
 						if (_vuorolkm < 11) {
 							_arvo -= 0.6;
 						}
 					}
+<<<<<<< HEAD
 					if (_lauta[i - 1][j]->getKoodi() == MT) {
+=======
+					if (i != 0 && (_lauta[i - 1][j] && (_lauta[i - 1][j]->getKoodi() == MT))) {
+>>>>>>> 74ea3e09d983338bff0d99529ccf39d149085968
 						if (_vuorolkm < 11) {
 							_arvo -= 0.8;
 						}
