@@ -1,5 +1,5 @@
 ﻿  Shakki.cpp
-c:\users\auvo\documents\sahki\shakki\shakki.h(106): warning C4584: 'Daami': base-class 'Nappula' is already a base-class of 'Lahetti'
-  c:\users\auvo\documents\sahki\shakki\shakki.h(54): note: see declaration of 'Nappula'
-  c:\users\auvo\documents\sahki\shakki\shakki.h(88): note: see declaration of 'Lahetti'
-  Shakki.vcxproj -> C:\Users\Auvo\Documents\sahki\shakki\Shakki\x64\Debug\Shakki.exe
+c:\users\omistaja\desktop\shakki_projekti\shakki\shakki.h(111): warning C4584: 'Daami': base-class 'Nappula' is already a base-class of 'Lahetti'
+  c:\users\omistaja\desktop\shakki_projekti\shakki\shakki.h(58): note: see declaration of 'Nappula'
+  c:\users\omistaja\desktop\shakki_projekti\shakki\shakki.h(93): note: see declaration of 'Lahetti'
+  Shakki.vcxproj -> C:\Users\Omistaja\Desktop\Shakki_Projekti\shakki\Shakki\x64\Debug\Shakki.exe
