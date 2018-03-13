@@ -18,6 +18,10 @@ enum
 
 class Asema;
 class MinMaxPaluu;
+class Nappula;
+class Siirto;
+class Ruutu;
+class Kayttoliittyma;
 
 class Ruutu {
 public:
