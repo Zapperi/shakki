@@ -43,7 +43,7 @@ public:
 	Ruutu getLoppuruutu();
 	bool onkoLyhytLinna();
 	bool onkoPitkälinna();
-	
+	Nappula* _nappulanKorotus = 0;
 private:
 	Ruutu _alkuRuutu;
 	Ruutu _loppuRuutu;
@@ -72,7 +72,7 @@ public:
 
 class Sotilas : public Nappula {
 	using Nappula::Nappula;
-	Nappula* _nappulanKorotus = 0;
+	
 	
 private:
 	
