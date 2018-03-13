@@ -1,14 +1,5 @@
-﻿  Asema.cpp
-c:\users\auvo\documents\sahki\shakki\shakki.h(108): warning C4584: 'Daami': base-class 'Nappula' is already a base-class of 'Lahetti'
-  c:\users\auvo\documents\sahki\shakki\shakki.h(55): note: see declaration of 'Nappula'
-  c:\users\auvo\documents\sahki\shakki\shakki.h(90): note: see declaration of 'Lahetti'
-c:\users\auvo\documents\sahki\shakki\asema.cpp(187): error C2059: syntax error: '}'
-c:\users\auvo\documents\sahki\shakki\asema.cpp(189): error C2059: syntax error: '}'
-c:\users\auvo\documents\sahki\shakki\asema.cpp(190): error C2059: syntax error: '}'
-c:\users\auvo\documents\sahki\shakki\asema.cpp(176): error C2059: syntax error: 'if'
-c:\users\auvo\documents\sahki\shakki\asema.cpp(176): error C2143: syntax error: missing ';' before '{'
-c:\users\auvo\documents\sahki\shakki\asema.cpp(192): error C2059: syntax error: 'return'
-c:\users\auvo\documents\sahki\shakki\asema.cpp(194): error C2059: syntax error: '}'
-c:\users\auvo\documents\sahki\shakki\asema.cpp(194): error C2143: syntax error: missing ';' before '}'
-c:\users\auvo\documents\sahki\shakki\asema.cpp(197): error C2143: syntax error: missing ';' before '{'
-c:\users\auvo\documents\sahki\shakki\asema.cpp(197): error C2447: '{': missing function header (old-style formal list?)
+﻿  Shakki.cpp
+c:\users\auvo\documents\sahki\shakki\shakki.h(112): warning C4584: 'Daami': base-class 'Nappula' is already a base-class of 'Lahetti'
+  c:\users\auvo\documents\sahki\shakki\shakki.h(59): note: see declaration of 'Nappula'
+  c:\users\auvo\documents\sahki\shakki\shakki.h(94): note: see declaration of 'Lahetti'
+  Shakki.vcxproj -> C:\Users\Auvo\Documents\sahki\shakki\Shakki\x64\Debug\Shakki.exe
