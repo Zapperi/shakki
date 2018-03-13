@@ -18,6 +18,7 @@ enum
 
 class Asema;
 class MinMaxPaluu;
+class Nappula;
 
 class Ruutu {
 public:

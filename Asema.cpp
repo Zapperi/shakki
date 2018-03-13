@@ -127,53 +127,65 @@ double Asema::evaluoi() {
 	double D_arvo = 9, T_arvo = 5, L_arvo = 3.5, R_arvo = 3, S_arvo = 1;
 	for (int i = 0; i < 8; i++) {
 		for (int j = 0; j < 8; j++) {
-			switch (_lauta[i][j]->getKoodi()) {
-			case VS:
-				_arvo += S_arvo;
-			case VR:
-				_arvo += R_arvo;
-			case VL:
-				_arvo += L_arvo;
-			case VT:
-				_arvo += T_arvo;
-			case VD:
-				_arvo += D_arvo;
-			case MS:
-				_arvo -= S_arvo;
-			case MR:
-				_arvo -= R_arvo;
-			case ML:
-				_arvo -= L_arvo;
-			case MT:
-				_arvo -= T_arvo;
-			case MD:
-				_arvo -= D_arvo;
-				break;
+			if(_lauta[i][j]){
+				switch (_lauta[i][j]->getKoodi()) {
+				case VS:
+					_arvo += S_arvo;
+					break;
+				case VR:
+					_arvo += R_arvo;
+					break;
+				case VL:
+					_arvo += L_arvo;
+					break;
+				case VT:
+					_arvo += T_arvo;
+					break;
+				case VD:
+					_arvo += D_arvo;
+					break;
+				case MS:
+					_arvo -= S_arvo;
+					break;
+				case MR:
+					_arvo -= R_arvo;
+					break;
+				case ML:
+					_arvo -= L_arvo;
+					break;
+				case MT:
+					_arvo -= T_arvo;
+					break;
+				case MD:
+					_arvo -= D_arvo;
+					break;
+				}
+				if (_lauta[i+1][j] && (_lauta[i][j]->getKoodi() == VK && i + 1 < 8) || (_lauta[i-1][j] && _lauta[i][j]->getKoodi() == VK && i - 1 > 0)) {
+					if (_lauta[i + 1][j]->getKoodi() == VT) {
+						if (_vuorolkm < 11) {
+							_arvo += 0.6;
+						}
+					}
+					if (_lauta[i - 1][j]->getKoodi() == VT) {
+						if (_vuorolkm < 11) {
+							_arvo += 0.8;
+						}
+					}
+				}
+				if ((_lauta[i + 1][j] && _lauta[i][j]->getKoodi() == MK && i + 1 < 8) || (_lauta[i - 1][j] && _lauta[i][j]->getKoodi() == MK && i - 1 > 0)) {
+					if (_lauta[i + 1][j]->getKoodi() == MT) {
+						if (_vuorolkm < 11) {
+							_arvo -= 0.6;
+						}
+					}
+					if (_lauta[i - 1][j]->getKoodi() == MT) {
+						if (_vuorolkm < 11) {
+							_arvo -= 0.8;
+						}
+					}
+				}
 			}
-			if ((_lauta[i][j]->getKoodi() == VK && i + 1 < 8) || (_lauta[i][j]->getKoodi() == VK && i - 1 > 0)) {
-				if (_lauta[i + 1][j]->getKoodi() == VT) {
-					if (_vuorolkm < 11) {
-						_arvo += 0.6;
-					}
-				}
-				if (_lauta[i - 1][j]->getKoodi() == VT) {
-					if (_vuorolkm < 11) {
-						_arvo += 0.8;
-					}
-				}
-			}
-			if ((_lauta[i][j]->getKoodi() == MK && i + 1 < 8) || (_lauta[i][j]->getKoodi() == MK && i - 1 > 0)) {
-				if (_lauta[i + 1][j]->getKoodi() == MT) {
-					if (_vuorolkm < 11) {
-						_arvo -= 0.6;
-					}
-				}
-				if (_lauta[i - 1][j]->getKoodi() == MT) {
-					if (_vuorolkm < 11) {
-						_arvo -= 0.8;
-					}
-				}
-			}
+			
 		}
 	}
 
@@ -387,7 +399,7 @@ void Asema::annaLaillisetSiirrot(list<Siirto>& lista) {
 
 }
 
-void lisaaSotilaanKorotukset(Siirto* siirto, list<Siirto>& lista, Asema* asema) {
+void Asema::lisaaSotilaanKorotukset(Siirto* siirto, list<Siirto>& lista, Asema* asema) {
 	if (siirto->getLoppuruutu().getRivi() == 7) {
 		// valkea korottaa
 		siirto->_nappulanKorotus = asema->vd;
