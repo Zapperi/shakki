@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ﻿  Kayttoliittyma.cpp
+=======
+﻿  Asema.cpp
+>>>>>>> Henkan
 c:\users\omistaja\desktop\shakki_projekti\shakki\shakki.h(111): warning C4584: 'Daami': base-class 'Nappula' is already a base-class of 'Lahetti'
   c:\users\omistaja\desktop\shakki_projekti\shakki\shakki.h(58): note: see declaration of 'Nappula'
   c:\users\omistaja\desktop\shakki_projekti\shakki\shakki.h(93): note: see declaration of 'Lahetti'
