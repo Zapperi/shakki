@@ -170,7 +170,7 @@ Siirto Kayttoliittyma::kasittely(string syote, int vari) {
 			if (alkuruutu == _asema->vkruutu)
 				_asema->vkruutu = loppuruutu;
 		}
-		else {
+		if (vari == 1) {
 			if (alkuruutu == _asema->mkruutu)
 				_asema->mkruutu = loppuruutu;
 		}

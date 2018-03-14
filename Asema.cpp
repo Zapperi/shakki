@@ -16,6 +16,7 @@ Asema::Asema() {
 }
 
 void Asema::paivitaAsema(Siirto* siirto) {
+	
 	//Linnoitus liikkeet
 	if (siirto->onkoLyhytLinna()) {
 		if (_siirtovuoro == 0 && !_onkoValkeaKuningasLiikkunut && !_onkoValkeaKTliikkunut) {
@@ -555,7 +556,7 @@ void Asema::listanSiivous(list<Siirto>& lista, int pelaajaVari) {
 			tempAsema = *this;
 			tempAsema.paivitaAsema(&siirto);
 			//Jos pelaaja on valkoinen (0), käy läpi onko kuninkaan ruutu uhattu.
-			//Jos aloitusruutu on kunkku ruutu, katsotaan kunkkuruudun turvallisuus
+			//Jos aloitusruutu on kunkkuruutu, katsotaan kunkkuruudun turvallisuus
 			if (siirto.getAlkuruutu() == vkruutu)
 				if (tempAsema.onkoRuutuTurvallinen(&tempAsema, &siirto.getLoppuruutu(), 1))
 					tempList.push_back(siirto);			
