@@ -23,6 +23,7 @@ class Siirto;
 class Ruutu;
 class Kayttoliittyma;
 
+
 class Ruutu {
 public:
 	Ruutu(int rivi, int sarake);
